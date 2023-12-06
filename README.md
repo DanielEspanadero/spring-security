@@ -1,4 +1,6 @@
-# Tutorial de Spring Security - JWT (Autenticación y autorización)
+# Spring Security - JWT (Autenticación y autorización)
+
+![Demo](https://github.com/DanielEspanadero/spring-security/blob/main/documents/spring-security.png)
 
 En este tutorial aprenderás:
 
@@ -15,6 +17,8 @@ En este tutorial aprenderás:
 Al loguearse el usuario, si las credenciales (usuario y contraseña) son válidas, se devolverá en la respuesta un JWT.<br>
 
 ## ¿Qué es OpenSSL?
+
+![Demo](https://github.com/DanielEspanadero/spring-security/blob/main/documents/OpenSSL.png)
 
 OpenSSL es una biblioteca de código abierto que proporciona implementaciones de protocolos criptográficos y funciones criptográficas en diversos lenguajes de programación. Esta biblioteca se utiliza comúnmente para implementar protocolos de seguridad como SSL (Secure Sockets Layer) y su sucesor, TLS (Transport Layer Security), que se utilizan para asegurar las comunicaciones en redes, como por ejemplo, las transacciones en línea y la transmisión segura de datos.
 
