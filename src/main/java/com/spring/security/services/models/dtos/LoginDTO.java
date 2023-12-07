@@ -1,4 +1,4 @@
-package com.spring.security.persistence.dtos;
+package com.spring.security.services.models.dtos;
 
 public class LoginDTO {
     private String email;

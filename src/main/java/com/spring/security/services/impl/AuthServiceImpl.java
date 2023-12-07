@@ -1,15 +1,18 @@
 package com.spring.security.services.impl;
 
-import com.spring.security.persistence.dtos.LoginDTO;
+import com.spring.security.services.models.dtos.LoginDTO;
 import com.spring.security.persistence.entities.UserEntity;
 import com.spring.security.persistence.repositories.UserRepository;
 import com.spring.security.services.IAuthService;
 import com.spring.security.services.IJWTUtilityService;
+import com.spring.security.services.models.dtos.ResponseDTO;
+import com.spring.security.services.models.validations.UserValidations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +24,9 @@ public class AuthServiceImpl implements IAuthService {
 
     @Autowired
     private IJWTUtilityService jwtUtilityService;
+
+    @Autowired
+    private UserValidations userValidations;
 
     @Override
     public HashMap<String, String> login(LoginDTO loginRequest) throws Exception {
@@ -48,23 +54,26 @@ public class AuthServiceImpl implements IAuthService {
     }
 
     @Override
-    public HashMap<String, String> register(UserEntity user) throws Exception {
+    public ResponseDTO register(UserEntity user) throws Exception {
         try {
-            HashMap<String, String> response = new HashMap<>();
+            ResponseDTO response = userValidations.validate(user);
             List<UserEntity> getAllUsers = userRepository.findAll();
+
+            if (response.getNumOfErrors() > 0){
+                return response;
+            }
 
             for (UserEntity repeatFields : getAllUsers) {
                 if (repeatFields != null) {
-                    response.put("message", "User already exists!");
+                    response.setMessage("User already exists!");
                     return response;
                 }
             }
 
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
             user.setPassword(encoder.encode(user.getPassword()));
-
             userRepository.save(user);
-            response.put("message", "User created successfully!");
+            response.setMessage("User created successfully!");
             return response;
         } catch (Exception e) {
             throw new Exception(e.getMessage());

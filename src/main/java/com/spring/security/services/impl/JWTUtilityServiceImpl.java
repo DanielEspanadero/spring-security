@@ -45,7 +45,7 @@ public class JWTUtilityServiceImpl implements IJWTUtilityService {
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject(userId.toString())
                 .issueTime(now)
-                .expirationTime(new Date(now.getTime() + 14400000))
+                .expirationTime(new Date(now.getTime() + 14400000)) //token expirará después de 4 horas
                 .build();
 
         SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.RS256), claimsSet);
